@@ -85,6 +85,63 @@ postFoodBtn.addEventListener("click", () => {
     loadDashboardStats();
 });
 
+const GHG_FOOD_FACTORS = [
+    { keywords: ["dairy herd", "dairy beef"], value: 33.3 },
+    { keywords: ["beef herd", "cattle", "steak", "beef"], value: 99.48 },
+    { keywords: ["lamb", "mutton", "goat"], value: 39.72 },
+    { keywords: ["dark chocolate"], value: 46.65 },
+    { keywords: ["chocolate"], value: 34 },
+    { keywords: ["coffee"], value: 28.53 },
+    { keywords: ["prawn", "shrimp"], value: 26.87 },
+    { keywords: ["cheese"], value: 23.88 },
+    { keywords: ["fish", "salmon", "seafood"], value: 13.63 },
+    { keywords: ["pig", "pork", "ham", "bacon"], value: 12.31 },
+    { keywords: ["poultry", "chicken", "turkey"], value: 9.87 },
+    { keywords: ["eggplant"], value: 0.53 },
+    { keywords: ["egg"], value: 4.67 },
+    { keywords: ["rice"], value: 4.45 },
+    { keywords: ["groundnut", "peanut"], value: 3.23 },
+    { keywords: ["beet sugar"], value: 1.81 },
+    { keywords: ["cane sugar", "sugar"], value: 3.2 },
+    { keywords: ["tofu"], value: 3.16 },
+    { keywords: ["soy milk", "soymilk"], value: 0.98 },
+    { keywords: ["milk", "dairy"], value: 3.15 },
+    { keywords: ["avocado"], value: 2.5 },
+    { keywords: ["oatmeal", "oat"], value: 2.48 },
+    { keywords: ["tomato"], value: 2.09 },
+    { keywords: ["bean", "lentil", "pulse"], value: 2 },
+    { keywords: ["wine"], value: 1.79 },
+    { keywords: ["maize", "corn"], value: 1.7 },
+    { keywords: ["wheat", "rye", "bread", "pasta"], value: 1.57 },
+    { keywords: ["berry", "berries", "grape"], value: 1.53 },
+    { keywords: ["cassava"], value: 1.32 },
+    { keywords: ["barley"], value: 1.18 },
+    { keywords: ["peach"], value: 1.05 },
+    { keywords: ["pea"], value: 0.98 },
+    { keywords: ["soy"], value: 0.98 },
+    { keywords: ["banana"], value: 0.86 },
+    { keywords: ["brassica", "cabbage", "broccoli", "cauliflower"], value: 0.51 },
+    { keywords: ["onion", "leek"], value: 0.5 },
+    { keywords: ["potato"], value: 0.46 },
+    { keywords: ["apple"], value: 0.43 },
+    { keywords: ["nut", "almond", "walnut"], value: 0.43 },
+    { keywords: ["root vegetable", "carrot", "turnip"], value: 0.43 },
+    { keywords: ["citrus", "orange", "lemon", "lime", "grapefruit"], value: 0.39 },
+    { keywords: ["fruit"], value: 1.05 },
+    { keywords: ["vegetable", "veggie", "salad"], value: 0.53 }
+];
+
+const GHG_AVERAGE = 10.44;
+
+function getGhgFactorForFood(foodName) {
+    const name = String(foodName || "").toLowerCase();
+    if (!name) return GHG_AVERAGE;
+    const match = GHG_FOOD_FACTORS.find(item =>
+        item.keywords.some(keyword => name.includes(keyword))
+    );
+    return match ? match.value : GHG_AVERAGE;
+}
+
 function loadDashboardStats() {
     const countElement = document.getElementById("rescued-food-count");
     const ghgElement = document.getElementById("ghg-count");
@@ -98,7 +155,11 @@ function loadDashboardStats() {
     }, 0);
     const previousQuantity = Number(countElement.dataset.value) || 0;
     const previousGhg = Number(ghgElement.dataset.value) || 0;
-    const totalGhg = totalQuantity * 2.5;
+    const totalGhg = posts.reduce((total, post) => {
+        const quantity = Number(post.quantity);
+        if (!Number.isFinite(quantity) || quantity <= 0) return total;
+        return total + quantity * getGhgFactorForFood(post.food);
+    }, 0);
     const animationStart = performance.now();
     const animationDuration = 450;
 
