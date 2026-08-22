@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPARC</title>
     <link rel="stylesheet" href="../static/style.css">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -50,6 +50,10 @@
                     <i class="fa-solid fa-chart-line"></i>
                     <span>Posts</span>
                 </a>
+                <a href="#" class="sidebar-link" data-page="notifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>Notifications <b id="foodbank-notification-count" class="notification-count">0</b></span>
+                </a>
                 <a href="#" class="sidebar-link" data-page="post">
                     <i class="fa-solid fa-plus"></i>
                     <span>Request Delivery</span>
@@ -66,6 +70,11 @@
                 <h1>Available Food</h1>
                 <p>View food available from restaurants.</p><br>
                 <div id="food-posts-list" class="history-list"></div>
+            </section>
+            <section id="notifications-page" class="dashboard-page hidden">
+                <h1>Notifications</h1>
+                <p>New restaurant posts are waiting for your review</p><br>
+                <div id="foodbank-notification-list" class="notification-list"></div>
             </section>
             <section id="post-page" class="dashboard-page hidden">
                 <h1>Request Delivery</h1>
@@ -162,6 +171,6 @@
         </p>
     </footer>
     </body>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
     <script src="../static/foodbank.js"></script>
 </html>

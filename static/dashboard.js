@@ -125,6 +125,7 @@ function loadHistory() {
     const historyList = document.getElementById("history-list");
     if (!historyList) return;
     const posts = JSON.parse(localStorage.getItem("foodPosts")) || [];
+    const acceptedPostIds = (JSON.parse(localStorage.getItem("foodBankAccepted")) || []).map(item => item.postId);
     historyList.innerHTML = "";
     if (posts.length === 0) {
         historyList.innerHTML = `
@@ -149,6 +150,7 @@ function loadHistory() {
                             Posted ${createdDate.toLocaleDateString()}
                         </span>
                     </div>
+                    ${acceptedPostIds.includes(post.id) ? '<span class="delivery-badge">Food bank accepted</span>' : '<span class="delivery-badge delivery-badge-pending">Awaiting food bank</span>'}
 
                     <button class="delete-post-btn" data-id="${post.id}">
                         <i class="fa-solid fa-delete-left"></i>

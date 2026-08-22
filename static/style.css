@@ -561,6 +561,239 @@ hr {
     transform: translateY(-1px);
 }
 
+.delivery-content {
+    background: #fafaf8;
+}
+
+.delivery-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 30px;
+}
+
+.delivery-heading h1 {
+    margin: 4px 0 10px;
+}
+
+.eyebrow {
+    color: #d85c45 !important;
+    font-size: 12px !important;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.delivery-status {
+    padding: 10px 14px;
+    border: 1px solid #cfe4d7;
+    border-radius: 20px;
+    background: #eff8f1;
+    color: #287047;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.delivery-status i {
+    margin-right: 7px;
+    font-size: 8px;
+}
+
+.delivery-workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+    gap: 24px;
+    min-height: 590px;
+}
+
+.delivery-map-container {
+    min-height: 590px;
+    overflow: hidden;
+    border: 1px solid #e5e1da;
+    border-radius: 14px;
+    background: #e5e0d8;
+}
+
+.delivery-map-container #delivery-map {
+    width: 100%;
+    height: 100%;
+}
+
+.pickup-list-panel {
+    padding: 22px;
+    border: 1px solid #e5e1da;
+    border-radius: 14px;
+    background: #fff;
+}
+
+.panel-heading,
+.pickup-card-top,
+.history-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.panel-heading {
+    padding-bottom: 16px;
+    border-bottom: 1px solid #eeeae4;
+}
+
+.panel-heading h2 {
+    margin: 0;
+    color: #201e8a;
+    font-size: 20px;
+}
+
+.panel-heading span,
+.pickup-card-top span,
+.notification-card span,
+.post-date {
+    color: #77736e;
+    font-size: 12px;
+}
+
+.pickup-list,
+.notification-list {
+    display: grid;
+    gap: 12px;
+    padding-top: 16px;
+}
+
+.pickup-card,
+.notification-card {
+    padding: 17px;
+    border: 1px solid #e8e4dd;
+    border-radius: 10px;
+    background: #fffdf9;
+}
+
+.pickup-card-top h3 {
+    margin: 0 0 5px;
+    color: #302b55;
+    font-size: 17px;
+}
+
+.pickup-card-top > i {
+    color: #d85c45;
+    font-size: 20px;
+}
+
+.pickup-location,
+.pickup-expiry {
+    display: flex;
+    gap: 9px;
+    align-items: flex-start;
+    margin: 13px 0 0;
+    color: #5f5c58 !important;
+    font-size: 13px !important;
+    line-height: 1.4;
+}
+
+.pickup-location i,
+.pickup-expiry i {
+    width: 14px;
+    color: #d85c45;
+    text-align: center;
+}
+
+.accept-button {
+    width: 100%;
+    margin-top: 16px;
+    padding: 11px 14px;
+    border: 0;
+    border-radius: 8px;
+    background: #d85c45;
+    color: #fff;
+    font-family: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.accept-button:hover {
+    background: #b94b38;
+}
+
+.foodbank-accept-button {
+    width: auto;
+    margin-top: 0;
+    padding: 8px 11px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.notification-card {
+    display: flex;
+    gap: 15px;
+    max-width: 720px;
+}
+
+.notification-card > i {
+    color: #287047;
+    font-size: 22px;
+}
+
+.notification-card strong {
+    color: #302b55;
+}
+
+.notification-card p {
+    margin: 5px 0;
+}
+
+.notification-count {
+    display: inline-grid;
+    min-width: 19px;
+    height: 19px;
+    place-items: center;
+    margin-left: auto;
+    border-radius: 50%;
+    background: #d85c45;
+    color: #fff;
+    font-size: 11px;
+}
+
+.delivery-badge {
+    padding: 5px 9px;
+    border-radius: 12px;
+    background: #eff8f1;
+    color: #287047;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.delivery-badge-pending {
+    background: #fff4df;
+    color: #99661f;
+}
+
+@media (max-width: 900px) {
+    .delivery-workspace {
+        grid-template-columns: 1fr;
+    }
+
+    .delivery-map-container {
+        min-height: 400px;
+    }
+}
+
+@media (max-width: 600px) {
+    .delivery-heading {
+        flex-direction: column;
+    }
+
+    .delivery-status {
+        align-self: flex-start;
+    }
+
+    .delivery-workspace {
+        min-height: 0;
+    }
+}
+
 .guide {
     width: 65%;
     margin: 200px auto 40px;

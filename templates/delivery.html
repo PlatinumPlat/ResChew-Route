@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPARC</title>
     <link rel="stylesheet" href="../static/style.css">
-    <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,95 +39,23 @@
             </ul>
         </nav>
     </header>
-    <div class="dashboard-container">
+    <div class="dashboard-container delivery-dashboard">
         <aside class="restaurant-sidebar">
-            <div class="sidebar-title">
-                <i class="fa-solid fa-seedling"></i>
-                <span>Delivery</span>
-            </div>
-            <nav class="sidebar-nav">
-                <a href="#" class="sidebar-link active" data-page="dashboard">
-                    <i class="fa-solid fa-chart-line"></i>
-                    <span>Dashboard</span>
-                </a>
-                <a href="#" class="sidebar-link" data-page="post">
-                    <i class="fa-solid fa-plus"></i>
-                    <span>Post Food</span>
-                </a>
-                <a href="#" class="sidebar-link" data-page="history">
-                    <i class="fa-solid fa-clock-rotate-left"></i>
-                    <span>History</span>
-                </a>
+            <div class="sidebar-title"><i class="fa-solid fa-truck-fast"></i><span>Delivery</span></div>
+            <nav class="sidebar-nav" aria-label="Delivery navigation">
+                <a href="#" class="sidebar-link active" data-page="pickups"><i class="fa-solid fa-map-location-dot"></i><span>Available Pickups</span></a>
+                <a href="#" class="sidebar-link" data-page="notifications"><i class="fa-solid fa-bell"></i><span>Notifications <b id="notification-count" class="notification-count">0</b></span></a>
+                <a href="#" class="sidebar-link" data-page="history"><i class="fa-solid fa-clock-rotate-left"></i><span>My Deliveries</span></a>
             </nav>
         </aside>
-        
-        <main class="restaurant-content">
-            <section id="dashboard-page" class="dashboard-page">
-                <h1>Dashboard</h1>
-                <p>Welcome to your ResChew Route restaurant dashboard.</p>
+
+        <main class="restaurant-content delivery-content">
+            <section id="pickups-page" class="dashboard-page">
+                <div class="delivery-heading"><div><p class="eyebrow">Driver route</p><h1>Available pickups</h1><p>Choose a nearby surplus food pickup and deliver it to the food bank.</p></div><div class="delivery-status"><i class="fa-solid fa-circle"></i> Ready to deliver</div></div>
+                <div class="delivery-workspace"><div class="delivery-map-container"><div id="delivery-map"></div></div><div class="pickup-list-panel"><div class="panel-heading"><h2>Pickup locations</h2><span id="pickup-count">0 available</span></div><div id="pickup-list" class="pickup-list" aria-live="polite"></div></div></div>
             </section>
-            <section id="post-page" class="dashboard-page hidden">
-                <h1>Post Food</h1>
-                <p>Post your surplus food here.</p>
-                <div class="post-container">
-                    <div class="post-map-container">
-                        <div id="map"></div>
-                    </div>
-                    <div class="post-form">
-                        <h2>Food Information</h2>
-                        <div class="form-group">
-                            <label for="location">
-                                <i class="fa-solid fa-location-dot"></i>
-                                Location
-                            </label>
-                
-                            <input type="text" id="location" placeholder="Enter restaurant address">
-                
-                            <button type="button" id="use-map-btn">
-                                <i class="fa-solid fa-map-pin"></i>
-                                Select on Map
-                            </button>
-                        </div>
-                        <div class="form-group">
-                            <label for="food">
-                                <i class="fa-solid fa-utensils"></i>
-                                Food
-                            </label>
-                            <input type="text" id="food" placeholder="e.g. Sandwiches">
-                        </div>
-                        <div class="form-group">
-                            <label for="quantity">
-                                <i class="fa-solid fa-box"></i>
-                                Quantity
-                            </label>
-                
-                            <input type="number" id="quantity" min="1" placeholder="e.g. 20">
-                        </div>
-                        <div class="form-group">
-                            <label for="expiry">
-                                <i class="fa-solid fa-clock"></i>
-                                Expiry
-                            </label>
-                            <input type="datetime-local" id="expiry">
-                        </div>
-                        <div class="form-group">
-                            <label for="notes">
-                                <i class="fa-solid fa-note-sticky"></i>
-                                Notes
-                            </label>
-                            <textarea id="notes" rows="4" placeholder="Any additional information..."></textarea>
-                        </div>
-                        <button type="button" id="post-food-btn" class="post-button">
-                            <i class="fa-solid fa-paper-plane"></i>
-                            Post Food
-                        </button>
-                    </div>
-                </div>
-            </section>
-            <section id="history-page" class="dashboard-page hidden">
-                <h1>History</h1>
-                <p>Your previous food posts will appear here.</p>
-            </section>
+            <section id="notifications-page" class="dashboard-page hidden"><div class="delivery-heading"><div><p class="eyebrow">Stay on route</p><h1>Notifications</h1><p>Updates for pickups you have accepted.</p></div></div><div id="notification-list" class="notification-list" aria-live="polite"></div></section>
+            <section id="history-page" class="dashboard-page hidden"><div class="delivery-heading"><div><p class="eyebrow">Your activity</p><h1>My deliveries</h1><p>Pickups you have accepted for delivery.</p></div></div><div id="delivery-history" class="history-list"></div></section>
         </main>
 
     </div>
@@ -158,6 +86,6 @@
         </p>
     </footer>
     </body>
-    <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
-    <script src="../static/dashboard.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="../static/delivery.js"></script>
 </html>
