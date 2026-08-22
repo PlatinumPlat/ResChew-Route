@@ -301,13 +301,100 @@ hr {
 }
 
 .dashboard-page h1 {
-    margin-bottom: 10px;
     font-size: 32px;
     color: #201e8a;
 }
 
 .dashboard-page p {
+    margin: 0;
     color: #666;
+}
+
+.dashboard-welcome {
+    margin-bottom: 42px;
+}
+
+.dashboard-welcome h1 {
+    margin-bottom: 12px;
+    font-size: clamp(2.2rem, 4vw, 3.1rem);
+    line-height: 1.05;
+}
+
+.dashboard-welcome p {
+    color: #4f3f88;
+    font-size: 1.2rem;
+}
+
+.dashboard-impact {
+    display: grid;
+    grid-template-columns: minmax(170px, 205px) minmax(0, 1fr);
+    align-items: center;
+    gap: 22px 26px;
+    max-width: 850px;
+}
+
+.dashboard-stat-card {
+    min-height: 112px;
+    padding: 20px 22px;
+    border: 3px solid #4f3f88;
+    border-radius: 14px 20px 16px 12px;
+    background: #ffffff;
+    box-shadow: 7px 7px 0 #e8e3f1;
+}
+
+.dashboard-stat-card strong {
+    display: block;
+    margin-bottom: 2px;
+    color: #201e8a;
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    line-height: 1;
+}
+
+.dashboard-stat-label,
+.dashboard-stat-detail {
+    display: block;
+}
+
+.dashboard-stat-label {
+    color: #201e8a;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.dashboard-stat-detail {
+    margin-top: 6px;
+    color: #777;
+    font-size: 12px;
+}
+
+.dashboard-impact-copy {
+    max-width: 500px;
+    color: #4f3f88 !important;
+    font-size: 1.15rem;
+    line-height: 1.45;
+}
+
+@media (max-width: 600px) {
+    .restaurant-content {
+        padding: 30px 22px;
+    }
+
+    .dashboard-welcome {
+        margin-bottom: 32px;
+    }
+
+    .dashboard-impact {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .dashboard-stat-card {
+        width: min(100%, 220px);
+    }
+
+    .dashboard-impact-copy {
+        font-size: 1.05rem;
+    }
 }
 
 .hidden {
@@ -501,25 +588,173 @@ hr {
 
 .issue-guide .imp-notice {
     width: 54%;
-    margin-bottom: -18px;
+    margin-bottom: -8px;
+    padding: 20px;
+    border: 3px solid #7d7596;
+    border-radius: 0;
+    background: #eae5f7;
     position: relative;
+    box-shadow: 5px 8px 14px rgba(39, 32, 72, 0.16);
+    isolation: isolate;
 }
 
-.issue-guide .imp-notice:nth-of-type(1) {
-    align-self: flex-start;
+.issue-intro {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 34px;
+    align-items: center;
+    margin-bottom: 34px;
+}
+
+.issue-kicker {
+    margin-bottom: 8px;
+    color: #7d7596;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.issue-intro h1 {
+    margin-bottom: 14px;
+    color: #201e8a;
+    font-size: 3.5rem;
+    line-height: 1;
+}
+
+.issue-intro-copy > p:last-child {
+    max-width: 470px;
+    color: #5c5c6d;
+    font-size: 1.08rem;
+    line-height: 1.7;
+}
+
+.issue-image {
+    margin: 0;
+    overflow: hidden;
+    border: 5px solid #b6b0c9;
+    border-radius: 4px;
+    background: #eae5f7;
+    box-shadow: 7px 9px 0 #eae5f7, 9px 11px 14px rgba(39, 32, 72, 0.14);
+    transform: rotate(2deg);
+}
+
+.issue-image img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.issue-lead {
+    margin: 12px 0 24px;
+    color: #201e8a;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.issue-notes {
+    display: flex;
+    flex-direction: column;
+}
+
+.issue-notes .imp-notice::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 22px;
+    height: 22px;
+    background: rgba(255, 255, 255, 0.42);
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
     z-index: 1;
 }
 
-.issue-guide .imp-notice:nth-of-type(2) {
+.issue-notes .imp-notice h2 {
+    margin: 0 0 8px;
+    color: #37315c;
+    font-size: 1.15rem;
+    line-height: 1.2;
+}
+
+.issue-notes .imp-notice:nth-child(odd) {
+    align-self: flex-start;
+    transform: rotate(-1.8deg) translateX(5px);
+    z-index: 1;
+}
+
+.issue-notes .imp-notice:nth-child(even) {
     align-self: flex-end;
     margin-bottom: 20px;
+    transform: rotate(1.6deg) translateX(-5px);
     z-index: 2;
 }
 
+.issue-notes .imp-notice:nth-child(1) {
+    width: 56%;
+    transform: rotate(-2.2deg) translate(8px, 2px);
+}
+
+.issue-notes .imp-notice:nth-child(2) {
+    width: 51%;
+    transform: rotate(1.2deg) translate(-12px, -4px);
+}
+
+.issue-notes .imp-notice:nth-child(3) {
+    width: 58%;
+    align-self: flex-end;
+    margin-bottom: -12px;
+    transform: rotate(-1deg) translate(-12px, -1px);
+}
+
+.issue-notes .imp-notice:nth-child(4) {
+    width: 53%;
+    align-self: flex-start;
+    margin-bottom: 14px;
+    transform: rotate(2.4deg) translate(12px, -7px);
+}
+
+.issue-notes .imp-notice:nth-child(5) {
+    width: 50%;
+    margin-bottom: -10px;
+    transform: rotate(-2.6deg) translate(2px, 4px);
+}
+
+.issue-notes .imp-notice:nth-child(6) {
+    width: 57%;
+    transform: rotate(1.9deg) translate(-16px, -3px);
+}
+
+.source-note {
+    margin-top: 28px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.source-note a {
+    color: #4f3f88;
+    text-decoration: underline;
+}
+
 @media (max-width: 600px) {
-    .issue-guide .imp-notice {
+    .issue-intro {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .issue-intro h1 {
+        font-size: 2.4rem;
+    }
+
+    .issue-image {
+        max-width: 92%;
+        justify-self: center;
+    }
+
+    .issue-notes .imp-notice:nth-child(n) {
         width: 100%;
         margin-bottom: 20px;
+        transform: none;
     }
 }
 
@@ -535,6 +770,194 @@ hr {
     padding-left: 0px;
 
     font-size: 1.07rem;
+}
+
+.about-next-steps {
+    margin-top: 10px;
+}
+
+.jot-points {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+    padding-left: 24px;
+    list-style: disc;
+}
+
+.jot-points li {
+    padding-left: 4px;
+    color: #555;
+}
+
+.jot-points li::marker {
+    color: #7d7596;
+    font-size: 0.8em;
+}
+
+.jot-points a {
+    color: #4f3f88;
+}
+
+.jot-points a:hover {
+    color: #201e8a;
+    text-decoration: underline;
+}
+
+.work-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 190px 5% 70px;
+}
+
+.work-intro {
+    max-width: 720px;
+    margin-bottom: 55px;
+}
+
+.work-kicker {
+    margin-bottom: 10px;
+    color: #7d7596;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.work-intro h1 {
+    margin-bottom: 16px;
+    color: #201e8a;
+    font-size: 3.4rem;
+    line-height: 1.05;
+}
+
+.work-intro > p:last-child {
+    color: #5c5c6d;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+.work-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 18px;
+}
+
+.work-step {
+    flex: 1;
+    min-width: 0;
+    padding: 28px 25px;
+    border: 3px solid #b6b0c9;
+    border-radius: 4px;
+    background: #eae5f7;
+    box-shadow: 6px 7px 0 #d8d2e8;
+}
+
+.work-step:nth-of-type(2) {
+    transform: translateY(18px);
+    background: #f1eff9;
+}
+
+.work-step-number {
+    margin-bottom: 22px;
+    color: #7d7596;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.work-step-icon {
+    margin-bottom: 18px;
+    color: #4f3f88;
+    font-size: 2rem;
+}
+
+.work-step h2 {
+    margin-bottom: 12px;
+    color: #201e8a;
+    font-size: 1.35rem;
+}
+
+.work-step p {
+    min-height: 105px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.work-status {
+    display: block;
+    margin-top: 20px;
+    color: #7d7596;
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.work-status i {
+    margin-right: 6px;
+}
+
+.work-status .fa-circle {
+    color: #6b9f78;
+    font-size: 0.55rem;
+}
+
+.work-connector {
+    align-self: center;
+    color: #7d7596;
+    font-size: 1.4rem;
+}
+
+.work-callout {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    max-width: 760px;
+    margin: 75px auto 0;
+    padding: 22px 28px;
+    border-left: 5px solid #7d7596;
+    background: #f1eff9;
+}
+
+.work-callout > i {
+    color: #4f3f88;
+    font-size: 1.8rem;
+}
+
+.work-callout h2 {
+    margin-bottom: 5px;
+    color: #201e8a;
+    font-size: 1.15rem;
+}
+
+.work-callout p {
+    color: #555;
+    line-height: 1.5;
+}
+
+@media (max-width: 800px) {
+    .work-flow {
+        flex-direction: column;
+    }
+
+    .work-step:nth-of-type(2) {
+        transform: none;
+    }
+
+    .work-step p {
+        min-height: 0;
+    }
+
+    .work-connector {
+        transform: rotate(90deg);
+    }
+}
+
+@media (max-width: 600px) {
+    .work-page {
+        padding-top: 150px;
+    }
+
+    .work-intro h1 {
+        font-size: 2.4rem;
+    }
 }
 
 .history-header {
