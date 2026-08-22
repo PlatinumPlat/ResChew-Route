@@ -1321,6 +1321,83 @@ hr {
     font-family: "Montserrat", sans-serif;
 }
 
+.contact-page {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 170px 40px 90px;
+}
+
+.contact-intro {
+    max-width: 720px;
+    margin-bottom: 55px;
+}
+
+.contact-intro h1 {
+    margin: 8px 0 18px;
+    color: #201e8a;
+    font-size: clamp(2.5rem, 5vw, 4.2rem);
+    line-height: 1.05;
+}
+
+.contact-layout {
+    max-width: 720px;
+}
+
+.contact-details {
+    display: grid;
+    gap: 28px;
+    padding-top: 8px;
+}
+
+.contact-detail {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.contact-icon {
+    display: grid;
+    flex: 0 0 46px;
+    width: 46px;
+    height: 46px;
+    place-items: center;
+    border-radius: 14px;
+    background: #e9e7f7;
+    color: #4f3f88;
+    font-size: 1.1rem;
+}
+
+.contact-detail h2 {
+    color: #201e8a;
+    font-size: 1.2rem;
+}
+
+.contact-detail h2 {
+    margin-bottom: 5px;
+}
+
+.contact-detail p {
+    color: #666;
+    line-height: 1.5;
+}
+
+.contact-detail a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #4f3f88;
+    font-weight: 700;
+}
+
+.contact-detail a:hover {
+    color: #201e8a;
+}
+
+@media (max-width: 800px) {
+    .contact-page {
+        padding: 150px 24px 70px;
+    }
+}
+
 .mapboxgl-popup-content span {
     padding: 5px;
     color: red;
