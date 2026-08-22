@@ -438,8 +438,7 @@ hr {
 }
 
 .guide {
-    width: 40%;
-    max-width: 900px;
+    width: 65%;
     margin: 200px auto 40px;
     display: flex;
     flex-direction: column;

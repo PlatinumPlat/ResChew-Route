@@ -44,7 +44,7 @@
         <aside class="restaurant-sidebar">
             <div class="sidebar-title">
                 <i class="fa-solid fa-seedling"></i>
-                <span>Restaurant</span>
+                <span>Delivery</span>
             </div>
             <nav class="sidebar-nav">
                 <a href="#" class="sidebar-link active" data-page="dashboard">
@@ -69,7 +69,7 @@
             </section>
             <section id="post-page" class="dashboard-page hidden">
                 <h1>Post Food</h1>
-                <p>Post your surplus food here!</p><br>
+                <p>Post your surplus food here.</p>
                 <div class="post-container">
                     <div class="post-map-container">
                         <div id="map"></div>
@@ -81,7 +81,13 @@
                                 <i class="fa-solid fa-location-dot"></i>
                                 Location
                             </label>
+                
                             <input type="text" id="location" placeholder="Enter restaurant address">
+                
+                            <button type="button" id="use-map-btn">
+                                <i class="fa-solid fa-map-pin"></i>
+                                Select on Map
+                            </button>
                         </div>
                         <div class="form-group">
                             <label for="food">
@@ -101,9 +107,9 @@
                         <div class="form-group">
                             <label for="expiry">
                                 <i class="fa-solid fa-clock"></i>
-                                Expiry Time
+                                Expiry
                             </label>
-                            <input type="time" id="expiry">
+                            <input type="datetime-local" id="expiry">
                         </div>
                         <div class="form-group">
                             <label for="notes">
