@@ -1,6 +1,6 @@
 const sidebarLinks = document.querySelectorAll(".sidebar-link");
 const pages = document.querySelectorAll(".dashboard-page");
-mapboxgl.accessToken = '';
+mapboxgl.accessToken = window.MAPBOX_ACCESS_TOKEN || "";
 
 sidebarLinks.forEach(link => {
     link.addEventListener("click", event => {

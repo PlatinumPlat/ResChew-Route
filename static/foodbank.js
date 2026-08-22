@@ -1,3 +1,5 @@
+mapboxgl.accessToken = window.MAPBOX_ACCESS_TOKEN || "";
+
 const sidebarLinks = document.querySelectorAll(".sidebar-link");
 const pages = document.querySelectorAll(".dashboard-page");
 

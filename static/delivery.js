@@ -1,3 +1,5 @@
+mapboxgl.accessToken = window.MAPBOX_ACCESS_TOKEN || "";
+
 const deliveryLinks = document.querySelectorAll(".delivery-dashboard .sidebar-link");
 const deliveryPages = document.querySelectorAll(".delivery-dashboard .dashboard-page");
 const deliveryMap = new mapboxgl.Map({
