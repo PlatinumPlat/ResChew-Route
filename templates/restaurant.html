@@ -64,8 +64,24 @@
         
         <main class="restaurant-content">
             <section id="dashboard-page" class="dashboard-page">
-                <h1>Dashboard</h1>
-                <p>Welcome to your ResChew Route restaurant dashboard.</p>
+                <div class="dashboard-welcome">
+                    <h1>Welcome Back!</h1>
+                    <p>You have helped rescue...</p>
+                </div>
+                <div class="dashboard-impact" aria-live="polite">
+                    <div class="dashboard-stat-card">
+                        <strong id="rescued-food-count">0</strong>
+                        <span class="dashboard-stat-label">meals</span>
+                        <span id="rescued-food-posts" class="dashboard-stat-detail">0 posts</span>
+                    </div>
+                    <p class="dashboard-impact-copy">to support individuals in need at various food banks, and reduce...</p>
+                    <div class="dashboard-stat-card">
+                        <strong id="ghg-count">0</strong>
+                        <span class="dashboard-stat-label">kg CO2e avoided</span>
+                        <span class="dashboard-stat-detail">estimated environmental impact</span>
+                    </div>
+                    <p class="dashboard-impact-copy">greenhouse gas emissions into the environment.</p>
+                </div>
             </section>
             <section id="post-page" class="dashboard-page hidden">
                 <h1>Post Food</h1>

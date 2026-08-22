@@ -57,7 +57,44 @@ postFoodBtn.addEventListener("click", () => {
     console.log("Saved post:", post);
     console.log("All posts:", posts);
     loadHistory();
+    loadDashboardStats();
 });
+
+function loadDashboardStats() {
+    const countElement = document.getElementById("rescued-food-count");
+    const ghgElement = document.getElementById("ghg-count");
+    const postsElement = document.getElementById("rescued-food-posts");
+    if (!countElement || !ghgElement || !postsElement) return;
+
+    const posts = JSON.parse(localStorage.getItem("foodPosts")) || [];
+    const totalQuantity = posts.reduce((total, post) => {
+        const quantity = Number(post.quantity);
+        return total + (Number.isFinite(quantity) && quantity > 0 ? quantity : 0);
+    }, 0);
+    const previousQuantity = Number(countElement.dataset.value) || 0;
+    const previousGhg = Number(ghgElement.dataset.value) || 0;
+    const totalGhg = totalQuantity * 2.5;
+    const animationStart = performance.now();
+    const animationDuration = 450;
+
+    countElement.dataset.value = totalQuantity;
+    ghgElement.dataset.value = totalGhg;
+    postsElement.textContent = `${posts.length} ${posts.length === 1 ? "post" : "posts"}`;
+
+    function updateCount(timestamp) {
+        const progress = Math.min((timestamp - animationStart) / animationDuration, 1);
+        const easedProgress = 1 - Math.pow(1 - progress, 3);
+        countElement.textContent = Math.round(
+            previousQuantity + (totalQuantity - previousQuantity) * easedProgress
+        ).toLocaleString();
+        ghgElement.textContent = (
+            previousGhg + (totalGhg - previousGhg) * easedProgress
+        ).toFixed(1);
+        if (progress < 1) requestAnimationFrame(updateCount);
+    }
+
+    requestAnimationFrame(updateCount);
+}
 
 function loadHistory() {
     const historyList = document.getElementById("history-list");
@@ -149,6 +186,7 @@ function loadHistory() {
                 JSON.stringify(updatedPosts)
             );
             loadHistory();
+            loadDashboardStats();
         });
     });
 }
@@ -241,3 +279,4 @@ map.on('load', () => {
 })
 
 loadHistory();
+loadDashboardStats();
