@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPARC</title>
     <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -49,13 +49,25 @@
             </nav>
         </aside>
 
-        <main class="restaurant-content delivery-content">
+        <main class="restaurant-content">
             <section id="pickups-page" class="dashboard-page">
-                <div class="delivery-heading"><div><p class="eyebrow">Driver route</p><h1>Available pickups</h1><p>Choose a nearby surplus food pickup and deliver it to the food bank.</p></div><div class="delivery-status"><i class="fa-solid fa-circle"></i> Ready to deliver</div></div>
+                <p class="eyebrow">Driver route</p>
+                <h1>Available pickups</h1>
+                <p>Choose a nearby surplus food pickup and deliver it to the food bank.</p><br>
                 <div class="delivery-workspace"><div class="delivery-map-container"><div id="delivery-map"></div></div><div class="pickup-list-panel"><div class="panel-heading"><h2>Pickup locations</h2><span id="pickup-count">0 available</span></div><div id="pickup-list" class="pickup-list" aria-live="polite"></div></div></div>
             </section>
-            <section id="notifications-page" class="dashboard-page hidden"><div class="delivery-heading"><div><p class="eyebrow">Stay on route</p><h1>Notifications</h1><p>Updates for pickups you have accepted.</p></div></div><div id="notification-list" class="notification-list" aria-live="polite"></div></section>
-            <section id="history-page" class="dashboard-page hidden"><div class="delivery-heading"><div><p class="eyebrow">Your activity</p><h1>My deliveries</h1><p>Pickups you have accepted for delivery.</p></div></div><div id="delivery-history" class="history-list"></div></section>
+            <section id="notifications-page" class="dashboard-page hidden">
+                <p class="eyebrow">Stay on route</p>
+                <h1>Notifications</h1>
+                <p>Updates for pickups you have accepted.</p><br>
+                <div id="notification-list" class="notification-list" aria-live="polite"></div>
+            </section>
+            <section id="history-page" class="dashboard-page hidden">
+                <p class="eyebrow">Your activity</p>
+                <h1>My deliveries</h1>
+                <p>Pickups you have accepted for delivery.</p><br>
+                <div id="delivery-history" class="history-list"></div>
+            </section>
         </main>
 
     </div>
@@ -89,6 +101,7 @@
         </p>
     </footer>
     </body>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+    <script src="../static/config.js"></script>
     <script src="../static/delivery.js"></script>
 </html>

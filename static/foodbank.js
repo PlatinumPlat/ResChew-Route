@@ -15,7 +15,7 @@ sidebarLinks.forEach(link => {
         const selectedPage = document.getElementById(`${pageName}-page`);
         if (pageName === "post") {
             setTimeout(() => {
-                map.invalidateSize();
+                map.resize();
             }, 0);
         }
         selectedPage.classList.remove("hidden");
@@ -25,8 +25,11 @@ sidebarLinks.forEach(link => {
     });
 });
 
-const map = L.map("map").setView([39.8283, -98.5795], 3);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "&copy; OpenStreetMap contributors" }).addTo(map);
+const map = new mapboxgl.Map({
+    container: "map",
+    center: [-98.5795, 39.8283],
+    zoom: 3
+});
 
 let locationMarker;
 
@@ -46,27 +49,23 @@ function setLocationResult([longitude, latitude], address) {
     addressInput.value = address;
 
     if (locationMarker) {
-        locationMarker.setLatLng([latitude, longitude]);
+        locationMarker.setLngLat([longitude, latitude]);
     } else {
-        locationMarker = L.marker([latitude, longitude]).addTo(map);
+        locationMarker = new mapboxgl.Marker().setLngLat([longitude, latitude]).addTo(map);
     }
-    map.flyTo([latitude, longitude], 14);
+    map.flyTo({ center: [longitude, latitude], zoom: 14 });
 }
 
 async function searchLocation(query, reverse = false) {
     const endpoint = reverse
-        ? `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${query[1]}&lon=${query[0]}`
-        : `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(query)}`;
-    const response = await fetch(endpoint);
+        ? `https://api.mapbox.com/geocoding/v5/mapbox.places/${query[0]},${query[1]}.json`
+        : `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json`;
+    const response = await fetch(`${endpoint}?access_token=${mapboxgl.accessToken}&limit=1`);
     if (!response.ok) throw new Error("Location search failed");
     const data = await response.json();
-    if (reverse) {
-        if (!data.lat || !data.lon) throw new Error("No matching location found");
-        setLocationResult([Number(data.lon), Number(data.lat)], data.display_name);
-    } else {
-        if (!data.length) throw new Error("No matching location found");
-        setLocationResult([Number(data[0].lon), Number(data[0].lat)], data[0].display_name);
-    }
+    if (!data.features.length) throw new Error("No matching location found");
+    const feature = data.features[0];
+    setLocationResult(feature.center, feature.place_name);
     showLocationStatus("Location found");
 }
 
@@ -104,11 +103,11 @@ document.getElementById("coordinate-search-btn").addEventListener("click", async
     });
 });
 
-
 function loadMapPosts() {
     const posts = JSON.parse(localStorage.getItem("foodPosts")) || [];
     posts.forEach(post => {
-        const popup = `
+        if (!Number.isFinite(Number(post.latitude)) || !Number.isFinite(Number(post.longitude))) return;
+        const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
             <strong>${post.food}</strong>
             <br>
             Quantity: ${post.quantity}
@@ -118,24 +117,28 @@ function loadMapPosts() {
             ${post.location}
             <br>
             <strong>Matching Code: ${post.code || "N/A"}</strong>
-        `;
-        if (Number.isFinite(Number(post.latitude)) && Number.isFinite(Number(post.longitude))) {
-            L.marker([Number(post.latitude), Number(post.longitude)]).bindPopup(popup).addTo(map);
-        }
+        `);
+        new mapboxgl.Marker()
+            .setLngLat([Number(post.longitude), Number(post.latitude)])
+            .setPopup(popup)
+            .addTo(map);
     });
 }
 
 function loadFoodBankLocation() {
     const foodBankLocation = JSON.parse(localStorage.getItem("foodBankLocation"));
     if (!foodBankLocation) return;
-    const popup = `
+    const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
         <strong>Food Bank</strong>
         <br>
         ${foodBankLocation.location}
         <br>
         <strong>Matching Code: ${foodBankLocation.code}</strong>
-    `;
-    L.marker([Number(foodBankLocation.latitude), Number(foodBankLocation.longitude)]).bindPopup(popup).addTo(map);
+    `);
+    new mapboxgl.Marker()
+        .setLngLat([Number(foodBankLocation.longitude), Number(foodBankLocation.latitude)])
+        .setPopup(popup)
+        .addTo(map);
 }
 
 function loadFoodPosts() {
@@ -421,19 +424,21 @@ if (requestDeliveryBtn) {
             JSON.stringify(requests)
         );
 
-        const popup = `
-            <strong>Food Bank</strong>
-            <br>
-            ${request.deliveryLocation}
-            <br>
-            <strong>Matching Code: ${request.code}</strong>
-            <br>
-            Food: ${request.food}
-            <br>
-            Quantity: ${request.quantity}
-            <br>
-        `;
-        L.marker([request.latitude, request.longitude]).bindPopup(popup).addTo(map);
+        new mapboxgl.Marker()
+            .setLngLat([request.longitude, request.latitude])
+            .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(`
+                <strong>Food Bank</strong>
+                <br>
+                ${request.deliveryLocation}
+                <br>
+                <strong>Matching Code: ${request.code}</strong>
+                <br>
+                Food: ${request.food}
+                <br>
+                Quantity: ${request.quantity}
+                <br>
+            `))
+            .addTo(map);
 
         alert("Delivery request submitted!");
 
@@ -448,9 +453,11 @@ if (requestDeliveryBtn) {
     });
 }
 
-loadMapPosts();
-loadFoodBankLocation();
-
 loadFoodPosts();
 loadFoodBankHistory();
 loadFoodBankNotifications();
+
+map.on("load", () => {
+    loadMapPosts();
+    loadFoodBankLocation();
+});

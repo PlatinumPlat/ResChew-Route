@@ -1,7 +1,10 @@
 const deliveryLinks = document.querySelectorAll(".delivery-dashboard .sidebar-link");
 const deliveryPages = document.querySelectorAll(".delivery-dashboard .dashboard-page");
-const deliveryMap = L.map("delivery-map").setView([39.8283, -98.5795], 3);
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { attribution: "&copy; OpenStreetMap contributors" }).addTo(deliveryMap);
+const deliveryMap = new mapboxgl.Map({
+    container: "delivery-map",
+    center: [-98.5795, 39.8283],
+    zoom: 3
+});
 const acceptedKey = "deliveryAccepted";
 const getPosts = () => JSON.parse(localStorage.getItem("foodPosts")) || [];
 const getAccepted = () => JSON.parse(localStorage.getItem(acceptedKey)) || [];
@@ -13,7 +16,7 @@ deliveryLinks.forEach(link => link.addEventListener("click", event => {
     link.classList.add("active");
     deliveryPages.forEach(page => page.classList.add("hidden"));
     document.getElementById(`${link.dataset.page}-page`).classList.remove("hidden");
-    if (link.dataset.page === "pickups") setTimeout(() => deliveryMap.invalidateSize(), 0);
+    if (link.dataset.page === "pickups") setTimeout(() => deliveryMap.resize(), 0);
 }));
 
 function formatDate(value) {
@@ -62,16 +65,22 @@ function renderHistory() {
 
 function addPickupMarkers() {
     const foodBankAccepted = JSON.parse(localStorage.getItem("foodBankAccepted")) || [];
-    foodBankAccepted.map(item => item.post).forEach(async post => {
-        if (!post.location) return;
-        try {
-            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&q=${encodeURIComponent(post.location)}`);
-            const data = await response.json();
-            if (data.length) L.marker([data[0].lat, data[0].lon]).bindPopup(`<strong>${post.food}</strong><br>${post.quantity} meals`).addTo(deliveryMap);
-        } catch (error) { console.warn("Could not map pickup location", error); }
+    foodBankAccepted.map(item => item.post).forEach(post => {
+        const lat = Number(post.latitude);
+        const lng = Number(post.longitude);
+        if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+        new mapboxgl.Marker()
+            .setLngLat([lng, lat])
+            .setPopup(new mapboxgl.Popup({ offset: 25 }).setHTML(
+                `<strong>${post.food}</strong><br>${post.quantity} meals`
+            ))
+            .addTo(deliveryMap);
     });
 }
 
 function renderAll() { renderPickups(); renderNotifications(); renderHistory(); }
-addPickupMarkers();
+deliveryMap.on("load", () => {
+    deliveryMap.resize();
+    addPickupMarkers();
+});
 renderAll();

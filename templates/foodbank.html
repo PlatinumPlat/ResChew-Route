@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SPARC</title>
     <link rel="stylesheet" href="../static/style.css">
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -67,16 +67,19 @@
         
         <main class="restaurant-content">
             <section id="dashboard-page" class="dashboard-page">
+                <p class="eyebrow">Food bank intake</p>
                 <h1>Available Food</h1>
                 <p>View food available from restaurants.</p><br>
                 <div id="food-posts-list" class="history-list"></div>
             </section>
             <section id="notifications-page" class="dashboard-page hidden">
+                <p class="eyebrow">Stay updated</p>
                 <h1>Notifications</h1>
                 <p>New restaurant posts are waiting for your review</p><br>
                 <div id="foodbank-notification-list" class="notification-list"></div>
             </section>
             <section id="post-page" class="dashboard-page hidden">
+                <p class="eyebrow">Arrange pickup</p>
                 <h1>Request Delivery</h1>
                 <p>Request a delivery.</p> <br>
             
@@ -137,6 +140,7 @@
                 </div>
             </section>
             <section id="history-page" class="dashboard-page hidden">
+                <p class="eyebrow">Your activity</p>
                 <h1>History</h1>
                 <p>Your previous delivery requests will appear here.</p><br>
                 <div id="history-list" class="history-list"></div>
@@ -174,6 +178,7 @@
         </p>
     </footer>
     </body>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+    <script src="../static/config.js"></script>
     <script src="../static/foodbank.js"></script>
 </html>
