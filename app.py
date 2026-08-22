@@ -26,9 +26,9 @@ def init_db():
 def home():
     return render_template("index.html")
 
-@app.route("/dashboard.html")
-def dashboard():
-    return render_template("dashboard.html")
+@app.route("/restaurant.html")
+def restaurant():
+    return render_template("restaurant.html")
 
 @app.route("/about.html")
 def about():

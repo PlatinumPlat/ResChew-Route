@@ -1,39 +1,39 @@
 const sidebarLinks = document.querySelectorAll(".sidebar-link");
 const pages = document.querySelectorAll(".dashboard-page");
+mapboxgl.accessToken = '';
 
 sidebarLinks.forEach(link => {
-    link.addEventListener("click", function (event) {
+    link.addEventListener("click", event => {
         event.preventDefault();
-        const pageName = this.getAttribute("data-page");
-        console.log("Clicked:", pageName);
-        sidebarLinks.forEach(link => {
-            link.classList.remove("active");
+        const pageName = link.dataset.page;
+        sidebarLinks.forEach(item => {
+            item.classList.remove("active");
         });
-        this.classList.add("active");
+        link.classList.add("active");
         pages.forEach(page => {
             page.classList.add("hidden");
         });
-        const selectedPage = document.getElementById(pageName + "-page");
-        console.log("Showing:", selectedPage);
-        if (selectedPage) {
-            selectedPage.classList.remove("hidden");
+        const selectedPage = document.getElementById(`${pageName}-page`);
+        if (pageName === "post") {
+            setTimeout(() => {
+                map.resize();
+            }, 0);
         }
+        selectedPage.classList.remove("hidden");
     });
 });
 
-mapboxgl.accessToken = '';
 const map = new mapboxgl.Map({
     container: 'map',
     center: [-98.5795, 39.8283],
     zoom: 3
 });
 
-const cities = [
-    { id: 'nyc', lon: -74.006, lat: 40.7128 }
+const places = [
 ];
 
 map.on('load', () => {
-    cities.forEach(city => {
-        new mapboxgl.Marker().setLngLat([city.lon, city.lat]).addTo(map);
+    places.forEach(place => {
+        new mapboxgl.Marker().setLngLat([place.lon, place.lat]).addTo(map);
     })
 })
