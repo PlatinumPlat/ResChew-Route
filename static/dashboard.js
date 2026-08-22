@@ -1,6 +1,6 @@
 const sidebarLinks = document.querySelectorAll(".sidebar-link");
 const pages = document.querySelectorAll(".dashboard-page");
-mapboxgl.accessToken = 'asdf';
+mapboxgl.accessToken = '';
 
 sidebarLinks.forEach(link => {
     link.addEventListener("click", event => {
@@ -23,6 +23,20 @@ sidebarLinks.forEach(link => {
     });
 });
 
+function generatePostCode() {
+    const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numbers = "0123456789";
+    let code = "RC-";
+    for (let i = 0; i < 2; i++) {
+        code += letters[Math.floor(Math.random() * letters.length)];
+    }
+    code += "-";
+    for (let i = 0; i < 4; i++) {
+        code += numbers[Math.floor(Math.random() * numbers.length)];
+    }
+    return code;
+}
+
 const postFoodBtn = document.getElementById("post-food-btn");
 
 postFoodBtn.addEventListener("click", () => {
@@ -31,13 +45,22 @@ postFoodBtn.addEventListener("click", () => {
     const quantity = document.getElementById("quantity").value;
     const expiry = document.getElementById("expiry").value;
     const notes = document.getElementById("notes").value.trim();
+    const latitude = Number(document.getElementById("latitude").value);
+    const longitude = Number(document.getElementById("longitude").value);
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) {
+        alert("Please select a valid location first.");
+        return;
+    }
     if (!location || !food || !quantity || !expiry) {
         alert("Please fill in all required fields.");
         return;
     }
     const post = {
         id: Date.now(),
+        code:generatePostCode(),
         location: location,
+        latitude: latitude,
+        longitude: longitude,
         food: food,
         quantity: Number(quantity),
         expiry: expiry,
@@ -53,6 +76,8 @@ postFoodBtn.addEventListener("click", () => {
     document.getElementById("quantity").value = "";
     document.getElementById("expiry").value = "";
     document.getElementById("notes").value = "";
+    document.getElementById("latitude").value = "";
+    document.getElementById("longitude").value = "";
 
     console.log("Saved post:", post);
     console.log("All posts:", posts);
@@ -77,7 +102,6 @@ function loadHistory() {
     posts.reverse().forEach(post => {
         const card = document.createElement("div");
         card.className = "history-card";
-        const expiryDate = new Date(post.expiry);
         const createdDate = new Date(post.createdAt);
         card.innerHTML = `
             <div class="history-card-content">
@@ -99,7 +123,7 @@ function loadHistory() {
                         <i class="fa-solid fa-location-dot"></i>
                         <div>
                             <span>Location</span>
-                            <strong>${post.location}</strong>
+                            ${post.location}
                         </div>
                     </div>
 
@@ -107,7 +131,7 @@ function loadHistory() {
                         <i class="fa-solid fa-box"></i>
                         <div>
                             <span>Quantity</span>
-                            <strong>${post.quantity}</strong>
+                            ${post.quantity}
                         </div>
                     </div>
 
@@ -115,7 +139,7 @@ function loadHistory() {
                         <i class="fa-solid fa-clock"></i>
                         <div>
                             <span>Expires</span>
-                            <strong>${expiryDate.toLocaleString()}</strong>
+                            ${post.expiry}
                         </div>
                     </div>
                 </div>
@@ -231,13 +255,32 @@ document.getElementById("coordinate-search-btn").addEventListener("click", async
     });
 });
 
-const places = [
-];
+function loadMapPosts() {
+    const posts = JSON.parse(localStorage.getItem("foodPosts")) || [];
+    posts.forEach(post => {
+        const popup = new mapboxgl.Popup({
+            offset: 25
+        }).setHTML(`
+            <strong>${post.food}</strong>
+            <br>
+            Quantity: ${post.quantity}
+            <br>
+            Expires: ${post.expiry}
+            <br>
+            ${post.location}
+        `);
+        new mapboxgl.Marker()
+            .setLngLat([
+                Number(post.longitude),
+                Number(post.latitude)
+            ])
+            .setPopup(popup)
+            .addTo(map);
+    });
+}
 
-map.on('load', () => {
-    places.forEach(place => {
-        new mapboxgl.Marker().setLngLat([place.lon, place.lat]).addTo(map);
-    })
-})
+map.on("load", () => {
+    loadMapPosts();
+});
 
 loadHistory();

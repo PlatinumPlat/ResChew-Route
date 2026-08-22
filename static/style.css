@@ -567,8 +567,8 @@ hr {
 
 .history-card-header h2 {
     margin-bottom: 5px;
-    color: #201e8a;
-    font-size: 21px;
+    color: #000000;
+    font-size: 18px;
 }
 
 .post-date {
@@ -587,7 +587,7 @@ hr {
     align-items: flex-start;
     gap: 10px;
     padding: 12px;
-    background: #f7f6fb;
+    background: #f6f5f8;
     border-radius: 10px;
 }
 
@@ -601,12 +601,6 @@ hr {
     font-size: 12px;
     color: #888;
     margin-bottom: 4px;
-}
-
-.history-detail strong {
-    display: block;
-    font-size: 14px;
-    color: #333;
 }
 
 .history-notes {
@@ -625,7 +619,7 @@ hr {
     margin-top: 3px;
 }
 
-.delete-post-btn {
+.delete-post-btn, .delete-request-btn {
     border: none;
     background: #fceeee;
     color: #b33a3a;
@@ -662,4 +656,13 @@ hr {
 
 .empty-history p {
     color: #888;
+}
+
+.mapboxgl-popup-content {
+    font-family: "Montserrat", sans-serif;
+}
+
+.mapboxgl-popup-content span {
+    padding: 5px;
+    color: red;
 }
