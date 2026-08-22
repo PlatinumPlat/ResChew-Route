@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPARC</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fa-solid fa-seedling"></i>
+                <span>ResChew Meal</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle">Dashboard <i class="fa-solid fa-chevron-down"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="restaurant.html">Restaurant</a></li>
+                        <li><a href="foodbank.html">Food Bank</a></li>
+                        <li><a href="delivery.html">Delivery</a></li>
+                    </ul>
+                </li>
+                <li><a href="guide.html">Guide</a></li>
+                <li><a href="info.html">Info</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="dashboard-container">
+        <aside class="restaurant-sidebar">
+            <div class="sidebar-title">
+                <i class="fa-solid fa-seedling"></i>
+                <span>Restaurant</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="sidebar-link active" data-page="dashboard">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="sidebar-link" data-page="post">
+                    <i class="fa-solid fa-plus"></i>
+                    <span>Post Food</span>
+                </a>
+                <a href="#" class="sidebar-link" data-page="history">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>History</span>
+                </a>
+            </nav>
+        </aside>
+        
+        <main class="restaurant-content">
+            <section id="dashboard-page" class="dashboard-page">
+                <h1>Dashboard</h1>
+                <p>Welcome to your ResChew Route restaurant dashboard.</p>
+            </section>
+            <section id="post-page" class="dashboard-page hidden">
+                <h1>Post Food</h1>
+                <p>Post your surplus food here.</p>
+                <div class="post-container">
+                    <div class="post-map-container">
+                        <div id="map"></div>
+                    </div>
+                    <div class="post-form">
+                        <h2>Food Information</h2>
+                        <div class="form-group">
+                            <label for="location">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Location
+                            </label>
+                
+                            <input type="text" id="location" placeholder="Enter restaurant address">
+                
+                            <button type="button" id="use-map-btn">
+                                <i class="fa-solid fa-map-pin"></i>
+                                Select on Map
+                            </button>
+                        </div>
+                        <div class="form-group">
+                            <label for="food">
+                                <i class="fa-solid fa-utensils"></i>
+                                Food
+                            </label>
+                            <input type="text" id="food" placeholder="e.g. Sandwiches">
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">
+                                <i class="fa-solid fa-box"></i>
+                                Quantity
+                            </label>
+                
+                            <input type="number" id="quantity" min="1" placeholder="e.g. 20">
+                        </div>
+                        <div class="form-group">
+                            <label for="expiry">
+                                <i class="fa-solid fa-clock"></i>
+                                Expiry
+                            </label>
+                            <input type="datetime-local" id="expiry">
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">
+                                <i class="fa-solid fa-note-sticky"></i>
+                                Notes
+                            </label>
+                            <textarea id="notes" rows="4" placeholder="Any additional information..."></textarea>
+                        </div>
+                        <button type="button" id="post-food-btn" class="post-button">
+                            <i class="fa-solid fa-paper-plane"></i>
+                            Post Food
+                        </button>
+                    </div>
+                </div>
+            </section>
+            <section id="history-page" class="dashboard-page hidden">
+                <h1>History</h1>
+                <p>Your previous food posts will appear here.</p>
+            </section>
+        </main>
+
+    </div>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">
+                <i class="fa-solid fa-seedling"></i>
+                <span>ResChew Meal</span>
+            </div>
+            <div class="footer-links">
+                <div>
+                    <h4>Main Pages</h4>
+                    <a href="index.html">Home</a>
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="faq.html">FAQ</a>
+                </div>
+    
+                <div>
+                    <h4>Inner Pages</h4>
+                    <a href="guide.html">Guide</a>
+                    <a href="info.html">Info</a>
+                    <a href="about.html">About</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <p class="creator">
+            Created by
+        </p>
+    </footer>
+    </body>
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+    <script src="../static/dashboard.js"></script>
+</html>
