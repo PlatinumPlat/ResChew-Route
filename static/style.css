@@ -1089,3 +1089,9 @@ hr {
     padding: 5px;
     color: red;
 }
+
+.logo img, .footer-logo img {
+    height: 50px;
+    width: auto;
+    display: block;
+}
