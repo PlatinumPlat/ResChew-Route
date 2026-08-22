@@ -81,7 +81,20 @@
                                 <i class="fa-solid fa-location-dot"></i>
                                 Location
                             </label>
-                            <input type="text" id="location" placeholder="Enter restaurant address">
+                            <div class="location-search-row" id="address-search">
+                                <input type="text" id="location" placeholder="Enter restaurant address" autocomplete="street-address">
+                                <button type="button" id="address-search-btn" class="location-search-btn" aria-label="Search address">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                            <div class="coordinate-fields" id="coordinate-search">
+                                <input type="number" id="latitude" placeholder="Latitude" min="-90" max="90" step="any" aria-label="Latitude">
+                                <input type="number" id="longitude" placeholder="Longitude" min="-180" max="180" step="any" aria-label="Longitude">
+                                <button type="button" id="coordinate-search-btn" class="location-search-btn" aria-label="Search coordinates">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </div>
+                            <p id="location-status" class="location-status" role="status" aria-live="polite"></p>
                         </div>
                         <div class="form-group">
                             <label for="food">
@@ -155,5 +168,6 @@
     </footer>
     </body>
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.14.0/mapbox-gl.js"></script>
+    <script src="../static/config.js"></script>
     <script src="../static/dashboard.js"></script>
 </html>

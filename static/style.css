@@ -400,6 +400,43 @@ hr {
     resize: vertical;
 }
 
+.location-search-row,
+.coordinate-fields {
+    display: flex;
+    gap: 6px;
+}
+
+.location-search-row input,
+.coordinate-fields input {
+    min-width: 0;
+    flex: 1;
+}
+
+.location-search-btn {
+    width: 42px;
+    flex: 0 0 42px;
+    border: 0;
+    border-radius: 9px;
+    background: #5c5d8a;
+    color: #fff;
+    cursor: pointer;
+}
+
+.location-search-btn:hover {
+    background: #080d58;
+}
+
+.location-status {
+    min-height: 18px;
+    margin-top: 6px;
+    color: #4f3f88;
+    font-size: 12px;
+}
+
+.location-status.error {
+    color: #b42318;
+}
+
 #use-map-btn {
     width: 100%;
     margin-top: 8px;
