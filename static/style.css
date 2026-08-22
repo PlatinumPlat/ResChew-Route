@@ -171,11 +171,6 @@ hr {
     margin: 0 auto;
 }
 
-#map {
-    width: 100%;
-    height: 600px;
-}
-
 .dropdown {
     position: relative;
 }
@@ -346,7 +341,7 @@ hr {
     background: #ddd;
 }
 
-#map {
+.post-map-container #map {
     width: 100%;
     height: 100%;
 }
