@@ -685,6 +685,37 @@ hr {
     font-size: 1.07rem;
 }
 
+.about-next-steps {
+    margin-top: 10px;
+}
+
+.jot-points {
+    display: grid;
+    gap: 12px;
+    margin-top: 12px;
+    padding-left: 24px;
+    list-style: disc;
+}
+
+.jot-points li {
+    padding-left: 4px;
+    color: #555;
+}
+
+.jot-points li::marker {
+    color: #7d7596;
+    font-size: 0.8em;
+}
+
+.jot-points a {
+    color: #4f3f88;
+}
+
+.jot-points a:hover {
+    color: #201e8a;
+    text-decoration: underline;
+}
+
 .history-header {
     margin-bottom: 25px;
 }
