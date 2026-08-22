@@ -9,7 +9,7 @@ First, restaurants submit posts about surplus food to the global database. The f
 Here are all the instructions you need to access ResChew Route!!!
 
 1. Open terminal and run `python3 -m http.server 8000` to launch local server
-2. Access application via [http://[::1]:8000/templates/](http://[::1]:8000/templates/)
+2. Access application [running locally](http://localhost:8000/templates/)
 
 Workflow: 
 - Restaurants create and publish surplus food items to database
